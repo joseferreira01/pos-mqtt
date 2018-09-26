@@ -18,3 +18,4 @@ nb-configuration.xml
 **/target
 .idea/**
 **/*.iml
+/mqtt-pratica/nbproject/private/

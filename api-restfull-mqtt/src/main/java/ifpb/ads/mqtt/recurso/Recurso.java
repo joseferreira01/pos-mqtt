@@ -1,6 +1,13 @@
-package ifpb.ads.mqtt;
- 
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package ifpb.ads.mqtt.recurso;
+
 import java.util.Arrays;
+import javax.ws.rs.Path;
+import javax.ws.rs.core.Response;
 import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken;
 import org.eclipse.paho.client.mqttv3.MqttCallback;
 import org.eclipse.paho.client.mqttv3.MqttClient;
@@ -9,14 +16,16 @@ import org.eclipse.paho.client.mqttv3.MqttException;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
 import org.eclipse.paho.client.mqttv3.persist.MqttDefaultFilePersistence;
 
-/**
- * @author Ricardo Job
- * @mail ricardo.job@ifpb.edu.br
- * @since 03/10/2017, 14:15:44
- */
-public class ClientMQTT {
 
-    public static void main(String[] args) {
+
+/**
+ *
+ * @author jose
+ */
+@Path("sensor") 
+public class Recurso {
+    private String data;
+     public Response recuperar () {
         String tmpDir = System.getProperty("java.io.tmpdir");
         MqttDefaultFilePersistence dataStore = new MqttDefaultFilePersistence(tmpDir);
         String topic = "sensor/temperatura/#";
@@ -38,6 +47,10 @@ public class ClientMQTT {
         } catch (MqttException me) {
             me.printStackTrace();
         }
+        
+         return Response.ok()
+                .entity(data)
+                .build();
     }
 
     static class ClienteCall implements MqttCallback {
@@ -52,7 +65,8 @@ public class ClientMQTT {
             byte[] bytes = mm.getPayload();
             System.out.println("topic: "+topic);
             System.out.println("array transmitido: "+Arrays.toString(bytes));
-            System.out.println("valor: "+new String(bytes));
+            String valor = new String(bytes);
+            System.out.println("valor: "+valor);
         }
 
         @Override
@@ -61,4 +75,5 @@ public class ClientMQTT {
             System.out.println("deliveryComplete");
         }
     }
+    
 }

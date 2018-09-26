@@ -1,8 +1,8 @@
 //http://mitsuruog.github.io/what-mqtt/
 // docker run -ti -p 1883:1883 -p 9001:9001 toke/mosquitto
 var mqtt    = require('mqtt');
-// var client  = mqtt.connect('ws://iot.eclipse.org:80/ws');
-var client  = mqtt.connect('ws://localhost:9001');
+ var client  = mqtt.connect('ws://iot.eclipse.org:80/ws');
+//var client  = mqtt.connect('ws://localhost:9001');
 var  flagEnviar = true;
 
 
